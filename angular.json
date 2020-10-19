@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "TyperacerAngular"
+    }
+  },
+  "defaultProject": "TyperacerAngular",
+  "cli": {
+    "analytics": "45b136b5-ad98-44e8-8996-0fc82b60f349"
+  }
 }

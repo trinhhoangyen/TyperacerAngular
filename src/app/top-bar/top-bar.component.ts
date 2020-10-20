@@ -23,17 +23,20 @@ export class TopBarComponent implements OnInit {
   LoginFB() {
     this.fireService.LoginFaceBook()
       .then(() => {
-        this.isLoggedIn = true;
         this.userInfo = JSON.parse(localStorage.getItem('user'));
-        console.log(this.userInfo);
+        if (this.userInfo) {
+          this.isLoggedIn = true;
+        }
     });
   }
 
   LoginGG() {
     this.fireService.LogInGoogle()
       .then(() => {
-        this.isLoggedIn = true;
         this.userInfo = JSON.parse(localStorage.getItem('user'));
+        if (this.userInfo) {
+          this.isLoggedIn = true;
+        }
     });
   }
 

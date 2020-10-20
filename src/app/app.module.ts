@@ -12,10 +12,11 @@ import { HighScoreComponent } from './high-score/high-score.component';
 import { ChooseOptionComponent } from './option/choose-option/choose-option.component';
 import { PracticeComponent } from './option/practice/practice.component';
 import { RaceComponent } from './option/race/race.component';
+import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
-    AppComponent, TopBarComponent, HomeComponent, HighScoreComponent, ChooseOptionComponent, PracticeComponent, RaceComponent
+    AppComponent, TopBarComponent, HomeComponent, HighScoreComponent, ChooseOptionComponent, PracticeComponent, RaceComponent, PlayerComponent
   ],
   imports: [
     BrowserModule,

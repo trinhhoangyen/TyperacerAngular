@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {AngularFireModule} from '@angular/fire';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,10 +20,10 @@ import { RaceComponent } from './option/race/race.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,    
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     ],
-  providers: [AngularFireDatabase],
+  providers: [AngularFireDatabase, AngularFireAuth],
   bootstrap: [AppComponent, TopBarComponent]
 })
 export class AppModule { }

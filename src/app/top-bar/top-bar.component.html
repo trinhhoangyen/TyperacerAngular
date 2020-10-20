@@ -6,17 +6,19 @@
                 account_circle
             </span>
         </div>
-        <button class="btn btn-login">
+        <div *ngIf="!isLoggedIn">
+          <button type="button" (click)="LoginFB()" class="btn btn-login">
             <span class="material-icons icon-facebook">
                 facebook
             </span>
             <p>Facebook</p>
-        </button>
-        <button class="btn btn-login">
-            <span class="material-icons icon-facebook">
-                facebook
-            </span>
-            <p>Google</p>
-        </button>
+          </button>
+          <button type="button" (click)="LoginGG()" class="btn btn-login">
+              <span class="material-icons icon-facebook">
+                  facebook
+              </span>
+              <p>Google</p>
+          </button>
+        </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 
@@ -13,6 +13,7 @@ export class FirebaseService {
     localStorage.removeItem('user');
     return this.fireAuth.auth.signOut()
       .then(() => {
+        localStorage.removeItem('user');
         alert('Đăng xuất thành công!');
     }).catch(error => {
         console.error(error);
@@ -23,7 +24,7 @@ export class FirebaseService {
   Login(provider) {
     return this.fireAuth.auth.signInWithPopup(provider)
       .then(result => {
-        localStorage.setItem('user', JSON.stringify(result.user));
+        localStorage.setItem('user', JSON.stringify(result));
         alert('Đăng nhập thành công');
     }).catch(error => {
         console.error(error);

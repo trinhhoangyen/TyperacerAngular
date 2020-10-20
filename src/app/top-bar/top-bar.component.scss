@@ -15,25 +15,23 @@ div.top-bar {
     float: right;
     display: flex;
 };
+.account{
+    margin-right: 10px;
+    line-height: 35px;
+};
 .btn-login{
     font-size: 15px;
     border-width: 0;
-    border-radius: 30px;
+    border-radius: 20px;
     background: linear-gradient(to bottom, #8d8dc4 0%, #e3cbfa 100%);
-    font-weight: 600;
-    color: #3c3429e5;
-    letter-spacing: 1px;
-    padding: 2px;
     height: 40px;
     margin-right: 5px;
 }
 .btn-login p {
-    margin-left: 5px;
+    font-weight: 600;
+    color: #3c3429e5;
+    letter-spacing: 1px;
     display: inline-block;
-    line-height: 40px;
-}
-.icon-facebook{
-    border-width: 0;
-    border-radius: 30px;
-    font-size: 37px;
+    line-height: 30px;    
+    color: rgb(105, 47, 164);
 }

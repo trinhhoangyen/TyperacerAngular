@@ -14,7 +14,7 @@ export class TopBarComponent implements OnInit {
   constructor(private fireService: FirebaseService) { }
 
   ngOnInit(): void {
-    this.userInfo = localStorage.getItem('user');
+    this.userInfo = JSON.parse(localStorage.getItem('user'));
     if (this.userInfo) {
       this.isLoggedIn = true;
     }
@@ -24,7 +24,8 @@ export class TopBarComponent implements OnInit {
     this.fireService.LoginFaceBook()
       .then(() => {
         this.isLoggedIn = true;
-        this.userInfo = localStorage.getItem('user');
+        this.userInfo = JSON.parse(localStorage.getItem('user'));
+        console.log(this.userInfo);
     });
   }
 
@@ -32,8 +33,16 @@ export class TopBarComponent implements OnInit {
     this.fireService.LogInGoogle()
       .then(() => {
         this.isLoggedIn = true;
-        this.userInfo = localStorage.getItem('user');
+        this.userInfo = JSON.parse(localStorage.getItem('user'));
     });
   }
 
+
+  LogOut() {
+    this.fireService.LogOut()
+      .then(() => {
+        this.isLoggedIn = false;
+        this.userInfo = '';
+    });
+  }
 }

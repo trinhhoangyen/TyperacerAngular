@@ -19,6 +19,6 @@ export class AppComponent implements OnInit {
   }
 
   async getList(){
-    let list = await this.db.object('player').valueChanges().subscribe(res => {console.log(res)})
+    let list = await this.db.object('paragraphs').valueChanges().subscribe(res => {console.log(res)})
   }
 }

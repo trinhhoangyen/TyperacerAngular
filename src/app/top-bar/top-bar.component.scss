@@ -1,0 +1,39 @@
+div.top-bar {
+    height: 70px;
+    padding: 10px 30px;
+    background: linear-gradient(to bottom right, #ccccff 0%, #ffffcc 100%);
+    color: linear-gradient(to bottom, #ffffcc 0%, #ffffff 100%);
+};
+.top-bar-brand{
+    font-weight: 600;
+    font-size: 26px;
+    color: #66615B;
+    letter-spacing: 1.5px;
+    float: left;
+};
+.top-left-bar{
+    float: right;
+    display: flex;
+};
+.btn-login{
+    font-size: 15px;
+    border-width: 0;
+    border-radius: 30px;
+    background: linear-gradient(to bottom, #8d8dc4 0%, #e3cbfa 100%);
+    font-weight: 600;
+    color: #3c3429e5;
+    letter-spacing: 1px;
+    padding: 2px;
+    height: 40px;
+    margin-right: 5px;
+}
+.btn-login p {
+    margin-left: 5px;
+    display: inline-block;
+    line-height: 40px;
+}
+.icon-facebook{
+    border-width: 0;
+    border-radius: 30px;
+    font-size: 37px;
+}

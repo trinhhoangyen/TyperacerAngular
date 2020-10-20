@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    width: 80%;
+    margin: auto;    
+    background-color:rgb(245, 245, 245);    
+}
+.container{
+    background-color:rgb(240, 240, 240);    
+    margin: auto;
+    height: 100%;
+    padding: 25px;
+};
+.material-icons {
+    font-size: 37px;
+    float: left;
+    color: rgb(105, 47, 164);
+};
+.border-grey{
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid grey;
+}
+.paragraph{
+    font-size: 24px;
+}
+.inputrace, .inputpractice, .inputpractice:active{
+    border: 1px solid grey;
+    width: 100%;
+    font-size: 24px;
+    height: 40px;
+    padding-left: 10px;
+};
+button{
+    border: 0;
+}

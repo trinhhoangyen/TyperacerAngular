@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {AngularFireModule} from '@angular/fire';
+import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -17,7 +17,14 @@ import { PlayerComponent } from './player/player.component';
 
 @NgModule({
   declarations: [
-    AppComponent, TopBarComponent, HomeComponent, HighScoreComponent, ChooseOptionComponent, PracticeComponent, RaceComponent, PlayerComponent
+    AppComponent,
+    TopBarComponent,
+    HomeComponent,
+    HighScoreComponent,
+    ChooseOptionComponent,
+    PracticeComponent,
+    RaceComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,

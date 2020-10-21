@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { OptionService } from '../../services/option.service';
 
 @Component({
   selector: 'app-choose-option',
@@ -6,16 +7,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./choose-option.component.scss']
 })
 export class ChooseOptionComponent implements OnInit {
-  @Input() flag: number;
-  @Output() flagChange = new EventEmitter<number>();
-  constructor() { }
+  constructor(private optionSvc: OptionService) { }
 
   ngOnInit(): void {
   }
 
-  changeChild(value:number){
-    console.log('va' + value)
-    this.flagChange.emit(value);
+  changeChild(value: number){
+    this.optionSvc.OptionValue = value;
   }
 
 }

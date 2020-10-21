@@ -1,4 +1,3 @@
-import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./race.component.scss']
 })
 export class RaceComponent implements OnInit {
-  @Input() flag: number;
-
   constructor() { }
 
   ngOnInit(): void {

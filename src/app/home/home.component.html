@@ -1,6 +1,6 @@
 <div>
-    <app-choose-option *ngIf="flag == 0" (changeChild)="changeParent($event)"></app-choose-option>
-    <app-practice *ngIf="flag == 1" [flag]="flag"></app-practice>
-    <app-race *ngIf="flag == 2" [flag]="flag"></app-race>
+    <app-choose-option *ngIf="optionSvc.OptionValue == 0"></app-choose-option>
+    <app-practice *ngIf="optionSvc.OptionValue == 1"></app-practice>
+    <app-race *ngIf="optionSvc.OptionValue == 2"></app-race>
     <app-high-score></app-high-score>
 </div>

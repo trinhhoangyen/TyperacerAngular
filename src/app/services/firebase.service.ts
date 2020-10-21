@@ -10,26 +10,11 @@ export class FirebaseService {
   constructor(public fireAuth: AngularFireAuth) { }
 
   async LogOut() {
-    localStorage.removeItem('user');
-    return this.fireAuth.auth.signOut()
-      .then(() => {
-        localStorage.removeItem('user');
-        alert('Đăng xuất thành công!');
-    }).catch(error => {
-        console.error(error);
-        alert('Đăng xuất không thành công!');
-    });
+    return this.fireAuth.auth.signOut();
   }
 
   Login(provider) {
-    return this.fireAuth.auth.signInWithPopup(provider)
-      .then(result => {
-        localStorage.setItem('user', JSON.stringify(result));
-        alert('Đăng nhập thành công');
-    }).catch(error => {
-        console.error(error);
-        alert('Đăng nhập không thành công');
-    });
+    return this.fireAuth.auth.signInWithPopup(provider);
   }
 
   async LoginFaceBook() {

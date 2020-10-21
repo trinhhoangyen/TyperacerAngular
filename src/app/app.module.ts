@@ -7,13 +7,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
-import { TopBarComponent } from './top-bar/top-bar.component';
-import { HomeComponent } from './home/home.component';
-import { HighScoreComponent } from './high-score/high-score.component';
-import { ChooseOptionComponent } from './option/choose-option/choose-option.component';
-import { PracticeComponent } from './option/practice/practice.component';
-import { RaceComponent } from './option/race/race.component';
-import { PlayerComponent } from './player/player.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { HomeComponent } from './components/home/home.component';
+import { HighScoreComponent } from './components/high-score/high-score.component';
+import { ChooseOptionComponent } from './components/option/choose-option/choose-option.component';
+import { PracticeComponent } from './components/option/practice/practice.component';
+import { RaceComponent } from './components/option/race/race.component';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [

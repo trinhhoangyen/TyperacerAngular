@@ -8,17 +8,9 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private db: AngularFireDatabase){
-    console.log('vo')
+  constructor(){
   }
 
   ngOnInit (): void {
-    console.log('oninit')
-    this.getList();
-
-  }
-
-  async getList(){
-    let list = await this.db.object('paragraphs').valueChanges().subscribe(res => {console.log(res)})
   }
 }

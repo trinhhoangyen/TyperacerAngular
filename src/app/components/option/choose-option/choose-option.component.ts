@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OptionService } from '../../services/option.service';
+import { OptionService } from 'src/app/services/option.service';
 
 @Component({
   selector: 'app-choose-option',

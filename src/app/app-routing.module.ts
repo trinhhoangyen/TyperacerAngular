@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { environment} from '../environments/environment'
-import { HomeComponent } from './home/home.component';
-import { PlayerComponent } from './player/player.component';
+import { HomeComponent } from './components/home/home.component';
+import { PlayerComponent } from './components/player/player.component';
 
 const appRoutes = [
   { path: 'player', component: PlayerComponent },

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OptionService } from 'src/app/services/option.service';
 
 @Component({
   selector: 'app-race',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./race.component.scss']
 })
 export class RaceComponent implements OnInit {
-  constructor() { }
+  constructor(public optionSvc: OptionService) { }
 
   ngOnInit(): void {
   }

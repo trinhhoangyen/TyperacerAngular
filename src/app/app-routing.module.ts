@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { environment} from '../environments/environment'
+import { environment} from '../environments/environment';
 import { HomeComponent } from './components/home/home.component';
 import { PlayerComponent } from './components/player/player.component';
 

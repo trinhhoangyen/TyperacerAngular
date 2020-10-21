@@ -44,10 +44,13 @@ export class TopBarComponent implements OnInit {
 
   private checkLogin(result: any) {
     if (result.user.displayName){
-      localStorage.setItem('user', JSON.stringify(result));
-      this.userInfo = result;
-      this.isLoggedIn = true;
-      alert('Đăng nhập thành công');
+      this.fireService.CheckUserInStore(result.user.uid)
+      .then(() => {
+        localStorage.setItem('user', JSON.stringify(result.user));
+        this.userInfo = result.user;
+        this.isLoggedIn = true;
+        alert('Đăng nhập thành công');
+      });
     } else {
       alert('Đăng nhập không thành công');
     }

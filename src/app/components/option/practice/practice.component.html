@@ -1,10 +1,15 @@
 <div class="border-grey">
-    <div class="progress">
-        <div class="progress-bar" style="width:70%"></div>
+    <div class="progress" style="height: 25px;">
+        <div class="progress-bar" [ngStyle]="{'width': percentRight + '%'}"></div>
+        <span class="material-icons" style="font-size: 25px; color: blue; ">directions_bike</span>
     </div>
     <div>
-        <p class="paragraph">{{list[index]}}</p>
-        <input class="inputpractice" type="text">
+        <div class="paragraph">
+            <span>{{stringRight}}</span>
+            <span [ngStyle]="{'color':color}">{{stringNow}}</span>
+            <span>{{stringType}}</span>
+        </div>
+        <input class="input" autofocus [ngStyle]="{'backgroundColor':backgroundColor}" (keyup)="typerace($event)">
     </div>
     <div>
         <button (click)="optionSvc.OptionValue = 0">&#x2607; trở về (leave pratice)</button>

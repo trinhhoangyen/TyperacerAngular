@@ -4,7 +4,7 @@
         <span class="material-icons" style="font-size: 25px; color: blue; ">directions_bike</span>
     </div>
     <div>
-        <div class="paragraph">
+        <div class="paragraph" *ngIf="typeIndex < paraLength">
             <span>{{stringRight}}</span>
             <span [ngStyle]="{'color':color}">{{stringNow}}</span>
             <span>{{stringType}}</span>

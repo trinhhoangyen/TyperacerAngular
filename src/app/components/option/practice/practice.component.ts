@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OptionService } from 'src/app/firebase/option.service';
-import { ParagraphService } from 'src/app/firebase/paragraph.service';
+import { OptionService } from 'src/app/services/option.service';
+import { ParagraphService } from 'src/app/services/paragraph.service';
 
 @Component({
   selector: 'app-practice',

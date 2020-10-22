@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OptionService } from 'src/app/firebase/option.service';
+import { OptionService } from 'src/app/services/option.service';
 
 @Component({
   selector: 'app-race',

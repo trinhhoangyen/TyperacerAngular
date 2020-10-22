@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/firebase/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -11,7 +11,7 @@ export class TopBarComponent implements OnInit {
   isLoggedIn = false;
   userInfo: any;
 
-  constructor(private fireService: FirebaseService) { }
+  constructor(private fireService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.userInfo = JSON.parse(localStorage.getItem('user'));

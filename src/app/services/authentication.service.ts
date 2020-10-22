@@ -6,7 +6,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class AuthenticationService {
 
   constructor(
     public fireAuth: AngularFireAuth,

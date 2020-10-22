@@ -30,11 +30,12 @@ export class FirebaseService {
 
   async CheckUserInStore(user: any) {
     console.log(user);
-    const itemsRef = this.data.object(`players/${ user }`);
+    const itemsRef = this.data.object(`players/${ user.uid }`);
 
     itemsRef.valueChanges().subscribe(res => {
         if (res == null) {
           itemsRef.set({
+            name: user.displayName,
             gender: 'male',
             races: []
           });

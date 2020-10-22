@@ -36,7 +36,6 @@ export class FirebaseService {
         if (res == null) {
           itemsRef.set({
             name: user.displayName,
-            gender: 'male',
             races: []
           });
         }

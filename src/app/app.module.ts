@@ -14,7 +14,7 @@ import { ChooseOptionComponent } from './components/option/choose-option/choose-
 import { PracticeComponent } from './components/option/practice/practice.component';
 import { RaceComponent } from './components/option/race/race.component';
 import { PlayerComponent } from './components/player/player.component';
-import { RoomComponent } from './room/room.component';
+import { RoomComponent } from './components/room/room.component';
 
 @NgModule({
   declarations: [

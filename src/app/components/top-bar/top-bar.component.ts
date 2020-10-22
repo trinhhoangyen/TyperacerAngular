@@ -44,7 +44,7 @@ export class TopBarComponent implements OnInit {
 
   private checkLogin(result: any) {
     if (result.user.displayName){
-      this.fireService.CheckUserInStore(result.user.uid)
+      this.fireService.CheckUserInStore(result.user)
       .then(() => {
         localStorage.setItem('user', JSON.stringify(result.user));
         this.userInfo = result.user;

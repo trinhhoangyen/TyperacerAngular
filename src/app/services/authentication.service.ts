@@ -15,7 +15,7 @@ export class AuthenticationService {
   get userInfo() {
     return this._userInfo;
   }
-  
+
   constructor(
     public fireAuth: AngularFireAuth,
     public data: AngularFireDatabase) {

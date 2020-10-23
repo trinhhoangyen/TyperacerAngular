@@ -16,17 +16,25 @@ export class PracticeComponent implements OnInit {
   stringRight = '';
   stringNow = '';
   stringType = '';
-
+  items;
   backgroundColor = 'white';
   color = 'blue';
 
   constructor(public optionSvc: OptionService, private paragraphSvc: ParagraphService) { }
   ngOnInit(): void {
-    this.paragraphSvc.getList().then(res => this.paragraph = res);
-    this.stringType = this.paragraph;
-    this.listWord = this.paragraph.split(' ');
-    this.paraLength = this.listWord.length;
-    this.typeNow();
+  }
+
+  ngAfterViewInit(): void {
+    this.paragraphSvc.get();
+    this.items = this.paragraphSvc.para;
+    this.paragraphSvc.para.subscribe(res => {
+      this.paragraph = res[0].content;
+      this.stringType = this.paragraph;
+      this.listWord = this.paragraph.split(' ');
+      this.paraLength = this.listWord.length;
+      this.typeNow();
+    });
+
   }
 
   typerace(event: any){

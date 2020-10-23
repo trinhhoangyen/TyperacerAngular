@@ -8,16 +8,34 @@ import { AngularFireDatabase } from '@angular/fire/database';
 })
 export class AuthenticationService {
 
+  private _userInfo: {
+    uid: string,
+    name: string
+  };
+  get userInfo() {
+    return this._userInfo;
+  }
+
   constructor(
     public fireAuth: AngularFireAuth,
-    public data: AngularFireDatabase) { }
+    public data: AngularFireDatabase) {
+      this._userInfo = JSON.parse(localStorage.getItem('user'));
+    }
 
   async LogOut() {
     return this.fireAuth.auth.signOut();
   }
 
   Login(provider) {
-    return this.fireAuth.auth.signInWithPopup(provider);
+    this.fireAuth.auth.signInWithPopup(provider)
+    .then(res => {
+      this.CheckUserInStore(res);
+      this._userInfo = {
+        uid: res.user.uid,
+        name: res.user.displayName
+      };
+      localStorage.setItem('user', JSON.stringify(this._userInfo));
+    });
   }
 
   async LoginFaceBook() {
@@ -28,14 +46,13 @@ export class AuthenticationService {
     return this.Login(new auth.GoogleAuthProvider());
   }
 
-  async CheckUserInStore(user: any) {
-    console.log(user);
-    const itemsRef = this.data.object(`players/${ user.uid }`);
+  async CheckUserInStore(userInfo) {
+    const itemsRef = this.data.object(`players/${ userInfo.user.uid }`);
 
     itemsRef.valueChanges().subscribe(res => {
         if (res == null) {
           itemsRef.set({
-            name: user.displayName,
+            name: userInfo.user.displayName,
             races: []
           });
         }

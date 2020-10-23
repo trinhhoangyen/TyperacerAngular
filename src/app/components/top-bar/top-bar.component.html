@@ -6,7 +6,7 @@
                 account_circle
             </span>
             <span *ngIf="isLoggedIn">
-              {{ userInfo.displayName || 'username' }}
+              {{ userInfo.name || 'username' }}
             </span>
         </button>
         <div *ngIf="!isLoggedIn">

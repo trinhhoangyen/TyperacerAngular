@@ -14,7 +14,7 @@ export class TopBarComponent implements OnInit {
   constructor(private fireService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.userInfo = JSON.parse(localStorage.getItem('user'));
+    this.userInfo = this.fireService.userInfo;
     if (this.userInfo) {
       this.isLoggedIn = true;
     }
@@ -22,8 +22,8 @@ export class TopBarComponent implements OnInit {
 
   LoginFB() {
     this.fireService.LoginFaceBook()
-    .then(result => {
-        this.checkLogin(result);
+    .then(() => {
+        this.checkLogin();
     })
     .catch(error => {
       console.error(error);
@@ -33,8 +33,8 @@ export class TopBarComponent implements OnInit {
 
   LoginGG() {
     this.fireService.LogInGoogle()
-    .then(result => {
-      this.checkLogin(result);
+    .then(() => {
+      this.checkLogin();
     })
     .catch(error => {
       console.error(error);
@@ -42,15 +42,11 @@ export class TopBarComponent implements OnInit {
     });
   }
 
-  private checkLogin(result: any) {
-    if (result.user.displayName){
-      this.fireService.CheckUserInStore(result.user)
-      .then(() => {
-        localStorage.setItem('user', JSON.stringify(result.user));
-        this.userInfo = result.user;
-        this.isLoggedIn = true;
-        alert('Đăng nhập thành công');
-      });
+  private checkLogin() {
+    this.userInfo = this.fireService.userInfo;
+    if (this.userInfo) {
+      this.isLoggedIn = true;
+      alert('Đăng nhập thành công');
     } else {
       alert('Đăng nhập không thành công');
     }

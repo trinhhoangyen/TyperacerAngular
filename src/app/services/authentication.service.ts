@@ -7,7 +7,6 @@ import { AngularFireDatabase } from '@angular/fire/database';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
   constructor(
     public fireAuth: AngularFireAuth,
     public data: AngularFireDatabase) { }

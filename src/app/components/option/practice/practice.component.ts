@@ -8,61 +8,49 @@ import { ParagraphService } from 'src/app/services/paragraph.service';
   styleUrls: ['./practice.component.scss']
 })
 export class PracticeComponent implements OnInit {
-  listPara: any = [];
-  index: number = 0;
+  typeIndex = 0;
+  listWord = [];
+  paragraph = '';
+  paraLength = 0;
+  percentRight = 0;
+  stringRight = '';
+  stringNow = '';
+  stringType = '';
 
-  typeIndex: number = 0;
-  para = [];
-  paraLength: number = 0;
-  percentRight: number = 0;
-  status: boolean = false;
-  stringRight: string = '';
-  stringNow: string = '';
-  stringType: string = '';
+  backgroundColor = 'white';
+  color = 'blue';
 
-  backgroundColor: string = 'white';
-  color: string = 'blue';
-
-  constructor(public optionSvc: OptionService, private paragraph: ParagraphService) { }
+  constructor(public optionSvc: OptionService, private paragraphSvc: ParagraphService) { }
   ngOnInit(): void {
-  this.paragraph.getList().then(res => {
-    res.subscribe(d => {
-      this.listPara = d;
-      this.getParagraph();
-      this.typeNow();
-    })
-  });
-  }
-
-  getParagraph(){
-    let l = this.listPara as Array<string>;
-    this.index = Math.floor(Math.random() * l.length);
-    this.stringType = this.listPara[this.index];
-    this.para = this.listPara[this.index].split(" ");
-    this.paraLength = this.para.length;;
+    this.paragraphSvc.getList().then(res => this.paragraph = res);
+    this.stringType = this.paragraph;
+    this.listWord = this.paragraph.split(' ');
+    this.paraLength = this.listWord.length;
+    this.typeNow();
   }
 
   typerace(event: any){
-    if(event.target.value == this.para[this.typeIndex] || event.target.value == '')
+    if (event.target.value === this.listWord[this.typeIndex] || event.target.value === '')
     {
       this.color = 'blue';
       this.backgroundColor = 'white';
       return;
     }
-    if(event.target.value.indexOf(' ') >= 0)
-      if(event.target.value == this.para[this.typeIndex] + ' '){
+    if (event.target.value.indexOf(' ') >= 0) {
+      if (event.target.value === this.listWord[this.typeIndex] + ' '){
         this.typeIndex++;
 
         this.stringRight += event.target.value + ' ';
-        this.stringNow = this.para[this.typeIndex];
+        this.stringNow = this.listWord[this.typeIndex];
         this.stringType = this.stringType.replace(this.stringNow, '');
 
-        this.percentRight = this.typeIndex/this.paraLength * 100;
+        this.percentRight = this.typeIndex / this.paraLength * 100;
         event.target.value = '';
         return;
       }
-    
-    if(this.para[this.typeIndex].indexOf(event.target.value) < 0)
+    }
+
+    if (this.listWord[this.typeIndex].indexOf(event.target.value) < 0)
     {
       this.color = 'red';
       this.backgroundColor = 'rgb(209, 87, 105)';
@@ -70,7 +58,7 @@ export class PracticeComponent implements OnInit {
     }
   }
   typeNow(){
-    this.stringNow = this.para[this.typeIndex];
+    this.stringNow = this.listWord[this.typeIndex];
     this.stringType = this.stringType.replace(this.stringNow, '');
   }
 }

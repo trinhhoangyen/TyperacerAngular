@@ -16,6 +16,7 @@ import { PracticeComponent } from './components/option/practice/practice.compone
 import { RaceComponent } from './components/option/race/race.component';
 import { PlayerComponent } from './components/player/player.component';
 import { RoomComponent } from './components/room/room.component';
+import { ProgessBarComponent } from './components/progess-bar/progess-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RoomComponent } from './components/room/room.component';
     PracticeComponent,
     RaceComponent,
     PlayerComponent,
-    RoomComponent
+    RoomComponent,
+    ProgessBarComponent
   ],
   imports: [
     BrowserModule,

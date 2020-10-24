@@ -16,6 +16,10 @@ import { PracticeComponent } from './components/option/practice/practice.compone
 import { RaceComponent } from './components/option/race/race.component';
 import { PlayerComponent } from './components/player/player.component';
 import { RoomComponent } from './components/room/room.component';
+import { ProgessBarComponent } from './components/progess-bar/progess-bar.component';
+import { TypeTextComponent } from './components/type-text/type-text.component';
+import { OptionService } from './services/option.service';
+import { ParagraphService } from './services/paragraph.service';
 
 @NgModule({
   declarations: [
@@ -27,15 +31,17 @@ import { RoomComponent } from './components/room/room.component';
     PracticeComponent,
     RaceComponent,
     PlayerComponent,
-    RoomComponent
+    RoomComponent,
+    ProgessBarComponent,
+    TypeTextComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
-    ],
-  providers: [AngularFireDatabase, AngularFireAuth],
-  bootstrap: [AppComponent, TopBarComponent]
+    AngularFirestoreModule,
+  ],
+  providers: [AngularFireDatabase, AngularFireAuth, OptionService, ParagraphService],
+  bootstrap: [AppComponent, TopBarComponent],
 })
-export class AppModule { }
+export class AppModule {}

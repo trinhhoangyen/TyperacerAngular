@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  du-xe:
+    image: angular-firebase:v3
+    volumes:
+      - /home/kan_haungo/Desktop/TyperacerAngular:/usr/app
+      - /usr/app/node_modules
+    ports:
+      - 4200:4200
+    stdin_open: true

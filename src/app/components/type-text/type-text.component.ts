@@ -3,70 +3,83 @@ import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
 
 @Component({
-  selector: 'app-practice',
-  templateUrl: './practice.component.html',
-  styleUrls: ['./practice.component.scss']
+  selector: 'app-type-text',
+  templateUrl: './type-text.component.html',
+  styleUrls: ['./type-text.component.scss'],
 })
-export class PracticeComponent implements OnInit {
+export class TypeTextComponent implements OnInit {
+  players; //chua so ng choi
   typeIndex = 0;
   listWord = [];
   paragraph = '';
   paraLength = 0;
-  percentRight = 0;
   stringRight = '';
   stringNow = '';
   stringType = '';
   items;
+
+  percentRight = 0;
   backgroundColor = 'white';
   color = 'blue';
-  name="ahihi"
+  name = 'ahihi';
 
-  constructor(public optionSvc: OptionService, private paragraphSvc: ParagraphService) { }
-  ngOnInit(): void {
-  }
+  constructor(
+    public optionSvc: OptionService,
+    private paragraphSvc: ParagraphService
+  ) {}
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.paragraphSvc.get();
     this.items = this.paragraphSvc.para;
-    this.paragraphSvc.para.subscribe(res => {
+    this.paragraphSvc.para.subscribe((res) => {
       this.paragraph = res[0].content;
       this.stringType = this.paragraph;
       this.listWord = this.paragraph.split(' ');
       this.paraLength = this.listWord.length;
       this.typeNow();
     });
-
   }
 
-  typerace(event: any){
-    if (event.target.value === this.listWord[this.typeIndex] || event.target.value === '')
-    {
+  typerace(event: any) {
+    console.log('players', this.players);
+    console.log('typeIndex', this.typeIndex);
+    console.log('listWord', this.listWord);
+    console.log('paragraph', this.paragraph);
+    console.log('paraLength', this.paraLength);
+    console.log('stringRight', this.stringRight);
+    console.log('stringNow', this.stringNow);
+    console.log('stringType', this.stringType);
+    console.log('items', this.items);
+    if (
+      event.target.value === this.listWord[this.typeIndex] ||
+      event.target.value === ''
+    ) {
       this.color = 'blue';
       this.backgroundColor = 'white';
       return;
     }
     if (event.target.value.indexOf(' ') >= 0) {
-      if (event.target.value === this.listWord[this.typeIndex] + ' '){
+      if (event.target.value === this.listWord[this.typeIndex] + ' ') {
         this.typeIndex++;
 
         this.stringRight += event.target.value + ' ';
         this.stringNow = this.listWord[this.typeIndex];
         this.stringType = this.stringType.replace(this.stringNow, '');
 
-        this.percentRight = this.typeIndex / this.paraLength * 100;
+        this.percentRight = (this.typeIndex / this.paraLength) * 100;
         event.target.value = '';
         return;
       }
     }
 
-    if (this.listWord[this.typeIndex].indexOf(event.target.value) < 0)
-    {
+    if (this.listWord[this.typeIndex].indexOf(event.target.value) < 0) {
       this.color = 'red';
       this.backgroundColor = 'rgb(209, 87, 105)';
       return;
     }
   }
-  typeNow(){
+  typeNow() {
     this.stringNow = this.listWord[this.typeIndex];
     this.stringType = this.stringType.replace(this.stringNow, '');
   }

@@ -1,16 +1,22 @@
 <div class="border-grey highscore">
     <p>Lastest High Scores</p>
     <table style="width: 100%;">
-        <thead class="row">
-            <th class="col col-2"></th>
-            <th class="col col-5">name</th>
-            <th class="col col-3">speed</th>
-            <th class="col col-2">time</th>
-        </thead>
-        <tbody *ngFor="">
+        <thead>
             <tr>
-                <td></td>
+              <th scope="col">#</th>
+              <th scope="col">Time</th>
+              <th scope="col">Point</th>
+              <th scope="col">Wpm</th>
             </tr>
-        </tbody>
+          </thead>
+          <tbody>
+            <tr *ngFor="let score of listHighScore; index as i">
+              <th scope="row">{{i}}</th>
+              <td>{{score.date | date}}</td>
+              <td>{{score.wpm}}</td>
+              <td>{{score.point}}</td>
+            </tr>
+            
+          </tbody>
     </table>
 </div>

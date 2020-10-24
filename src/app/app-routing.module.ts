@@ -9,17 +9,13 @@ const appRoutes = [
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: 'home' },
   { path: 'room', component: RoomComponent },
-]
+];
 
 @NgModule({
-  declarations: [
-  ],
-  imports: [
-    RouterModule.forRoot(appRoutes),
-  ],
-  exports: [RouterModule]
+  declarations: [],
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
-  constructor(){
-  }
- }
+  constructor() {}
+}

@@ -1,4 +1,11 @@
 <p>RoomId: {{ roomId }}</p>
-<div *ngFor="let friend of listFriends">
-  <p>friendid: {{ friend[0] }}</p>
+
+<div *ngIf="listFriends">
+  <div *ngFor="let friend of listFriends">
+    <div class="race">
+      <app-practice></app-practice>
+    </div>
+    <div>
+    </div>
+  </div>
 </div>

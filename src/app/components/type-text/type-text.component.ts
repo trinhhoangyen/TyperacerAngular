@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
 
@@ -8,49 +8,31 @@ import { ParagraphService } from 'src/app/services/paragraph.service';
   styleUrls: ['./type-text.component.scss'],
 })
 export class TypeTextComponent implements OnInit {
-  players; //chua so ng choi
+  @Input() paragraph;
+  @Output() handleSubmit = new EventEmitter();
+
   typeIndex = 0;
   listWord = [];
-  paragraph = '';
   paraLength = 0;
   stringRight = '';
   stringNow = '';
   stringType = '';
-  items;
 
   percentRight = 0;
   backgroundColor = 'white';
   color = 'blue';
   name = 'ahihi';
 
-  constructor(
-    public optionSvc: OptionService,
-    private paragraphSvc: ParagraphService
-  ) {}
+  constructor(public optionSvc: OptionService) {}
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.paragraphSvc.get();
-    this.items = this.paragraphSvc.para;
-    this.paragraphSvc.para.subscribe((res) => {
-      this.paragraph = res[0].content;
-      this.stringType = this.paragraph;
-      this.listWord = this.paragraph.split(' ');
-      this.paraLength = this.listWord.length;
-      this.typeNow();
-    });
+    this.stringType = this.paragraph;
+    this.listWord = this.paragraph.split(' ');
+    this.paraLength = this.listWord.length;
+    this.typeNow();
   }
-
   typerace(event: any) {
-    console.log('players', this.players);
-    console.log('typeIndex', this.typeIndex);
-    console.log('listWord', this.listWord);
-    console.log('paragraph', this.paragraph);
-    console.log('paraLength', this.paraLength);
-    console.log('stringRight', this.stringRight);
-    console.log('stringNow', this.stringNow);
-    console.log('stringType', this.stringType);
-    console.log('items', this.items);
     if (
       event.target.value === this.listWord[this.typeIndex] ||
       event.target.value === ''

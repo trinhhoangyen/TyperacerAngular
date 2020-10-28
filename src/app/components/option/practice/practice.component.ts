@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { RaceService } from 'src/app/services/race.service';
+import Races from 'src/interfaces/race.interface';
 
 @Component({
   selector: 'app-practice',
@@ -22,16 +24,21 @@ export class PracticeComponent implements OnInit {
   items: any;
   backgroundColor = 'white';
   color = 'blue';
-  name:string;
+  name: string;
+  userId: string;
+  race: Races;
 
   constructor(
     public optionSvc: OptionService,
     private paragraphSvc: ParagraphService,
-    private fireService: AuthenticationService
+    private fireService: AuthenticationService,
+    private races: RaceService,
+    private auth: AuthenticationService
   ) {}
   ngOnInit(): void {
     if (this.fireService.userInfo)
       this.name = this.fireService.userInfo.name || 'No login';
+    this.userId = this.auth.userInfo.uid;
   }
 
   ngAfterViewInit(): void {
@@ -48,6 +55,15 @@ export class PracticeComponent implements OnInit {
 
   typerace(event) {
     if (event.target.value.indexOf(' ') >= 0) {
+      if (this.typeIndex === this.paraLength - 1) {
+        console.log('chay dc');
+        this.race = {
+          date: new Date().getTime().toString(),
+          point: 0,
+          wpm: 50,
+        };
+        this.races.addRace(this.race, this.userId);
+      }
       if (event.target.value === this.listWord[this.typeIndex] + ' ') {
         this.typeIndex++;
 

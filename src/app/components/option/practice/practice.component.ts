@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-practice',
@@ -8,6 +9,8 @@ import { ParagraphService } from 'src/app/services/paragraph.service';
   styleUrls: ['./practice.component.scss'],
 })
 export class PracticeComponent implements OnInit {
+  @Input() players: { name: string; percent: number; color: string }[] = [];
+
   typeIndex = 0;
   listWord = [];
   paragraph = '';
@@ -16,23 +19,26 @@ export class PracticeComponent implements OnInit {
   stringRight = '';
   stringNow = '';
   stringType = '';
-  items;
+  items: any;
   backgroundColor = 'white';
   color = 'blue';
-  name = 'ahihi';
-  passChild="";
+  name:string;
+
   constructor(
     public optionSvc: OptionService,
-    private paragraphSvc: ParagraphService
+    private paragraphSvc: ParagraphService,
+    private fireService: AuthenticationService
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.fireService.userInfo)
+      this.name = this.fireService.userInfo.name || 'No login';
+  }
 
   ngAfterViewInit(): void {
     this.paragraphSvc.get();
     this.items = this.paragraphSvc.para;
     this.paragraphSvc.para.subscribe((res) => {
       this.paragraph = res[0].content;
-      this.passChild = res[0].content;
       this.stringType = this.paragraph;
       this.listWord = this.paragraph.split(' ');
       this.paraLength = this.listWord.length;
@@ -40,15 +46,7 @@ export class PracticeComponent implements OnInit {
     });
   }
 
-  typerace(event: any) {
-    if (
-      event.target.value === this.listWord[this.typeIndex] ||
-      event.target.value === ''
-    ) {
-      this.color = 'blue';
-      this.backgroundColor = 'white';
-      return;
-    }
+  typerace(event) {
     if (event.target.value.indexOf(' ') >= 0) {
       if (event.target.value === this.listWord[this.typeIndex] + ' ') {
         this.typeIndex++;
@@ -66,7 +64,9 @@ export class PracticeComponent implements OnInit {
     if (this.listWord[this.typeIndex].indexOf(event.target.value) < 0) {
       this.color = 'red';
       this.backgroundColor = 'rgb(209, 87, 105)';
-      return;
+    } else if (this.color != 'blue') {
+      this.color = 'blue';
+      this.backgroundColor = 'white';
     }
   }
   typeNow() {

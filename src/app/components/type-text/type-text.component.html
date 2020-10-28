@@ -1,7 +1,8 @@
 <div class="border-grey">
-  <div>
-    <app-progess-bar [name]="name" [percent]="percentRight" [color]="color" ></app-progess-bar>
-  </div>
+  <!-- <div *ngFor="let player of players">
+    <app-progess-bar [name]="player.name" [percent]="player.percent" [color]="player.color" ></app-progess-bar>
+  </div> -->
+  <app-progess-bar [name]="name" [percent]="percentRight" [color]="color" ></app-progess-bar>
   <div>
     <div class="paragraph" *ngIf="typeIndex < paraLength">
       <span>{{ stringRight }}</span>

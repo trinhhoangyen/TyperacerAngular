@@ -2,6 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { RaceService } from 'src/app/services/race.service';
+import Races from 'src/interfaces/race.interface';
+import { ActivatedRoute } from '@angular/router';
+import { PlayerService } from 'src/app/services/player.service';
+import { RoomDataService } from '../../services/database/room-data.service';
 
 @Component({
   selector: 'app-type-text',
@@ -9,7 +14,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./type-text.component.scss'],
 })
 export class TypeTextComponent implements OnInit {
-  @Input() players: { name: string; percent: number; color: string }[] = [];
+  listFriends;
+  indexParagraph;
 
   typeIndex = 0;
   listWord = [];
@@ -22,20 +28,49 @@ export class TypeTextComponent implements OnInit {
   items: any;
   backgroundColor = 'white';
   color = 'blue';
-  name:string;
+  name: string;
+  userId: string;
+  race: Races;
+  roomId: string;
 
   constructor(
     public optionSvc: OptionService,
     private paragraphSvc: ParagraphService,
-    private fireService: AuthenticationService
+    private fireService: AuthenticationService,
+    private races: RaceService,
+    private auth: AuthenticationService,
+    private activeRoute: ActivatedRoute,
+    private player: PlayerService,
+    private roomDataSvc: RoomDataService
   ) {}
   ngOnInit(): void {
     if (this.fireService.userInfo)
       this.name = this.fireService.userInfo.name || 'No login';
+
+    this.userId = this.auth.userInfo.uid;
+    
+    this.activeRoute.queryParams.subscribe((params) => {
+      this.roomId = params['roomId'];
+      this.roomDataSvc.GetListFriends(this.roomId).subscribe((res) => {
+        const temp: Object = res;
+        if (res) {
+          this.listFriends = Object.values(temp);
+        }
+        console.log(this.listFriends);
+      });
+
+      this.roomDataSvc.GetIndexParagraph(this.roomId).subscribe((res) => {
+        this.indexParagraph = res;
+        console.log(this.indexParagraph);
+        console.log(this.roomId);
+
+        this.ngAfterOnInit();
+      });
+    });
   }
 
-  ngAfterViewInit(): void {
-    this.paragraphSvc.get();
+  ngAfterOnInit(): void {
+    this.paragraphSvc.getById(this.indexParagraph);
     this.items = this.paragraphSvc.para;
     this.paragraphSvc.para.subscribe((res) => {
       this.paragraph = res[0].content;
@@ -48,6 +83,15 @@ export class TypeTextComponent implements OnInit {
 
   typerace(event) {
     if (event.target.value.indexOf(' ') >= 0) {
+      if (this.typeIndex === this.paraLength - 1) {
+        console.log('chay dc');
+        this.race = {
+          date: new Date().getTime().toString(),
+          point: 0,
+          wpm: 50,
+        };
+        this.races.addRace(this.race, this.userId);
+      }
       if (event.target.value === this.listWord[this.typeIndex] + ' ') {
         this.typeIndex++;
 
@@ -56,6 +100,11 @@ export class TypeTextComponent implements OnInit {
         this.stringType = this.stringType.replace(this.stringNow, '');
 
         this.percentRight = (this.typeIndex / this.paraLength) * 100;
+        this.player.setPercentOfPlayer(
+          this.roomId,
+          this.userId,
+          this.percentRight
+        );
         event.target.value = '';
         return;
       }

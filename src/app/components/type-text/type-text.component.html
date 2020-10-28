@@ -1,8 +1,8 @@
 <div class="border-grey">
-  <!-- <div *ngFor="let player of players">
-    <app-progess-bar [name]="player.name" [percent]="player.percent" [color]="player.color" ></app-progess-bar>
-  </div> -->
-  <app-progess-bar [name]="name" [percent]="percentRight" [color]="color" ></app-progess-bar>
+  <div *ngFor="let player of listFriends">
+    <app-progess-bar [name]="player.name" [percent]="player.score" [color]="color" ></app-progess-bar>
+  </div>
+  <!-- <app-progess-bar [name]="name" [percent]="percentRight" [color]="color" ></app-progess-bar> -->
   <div>
     <div class="paragraph" *ngIf="typeIndex < paraLength">
       <span>{{ stringRight }}</span>

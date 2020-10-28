@@ -11,7 +11,13 @@ export class ParagraphService {
   get() {
     //  this.para = this.firestore.collection('paragraphs', res => res.where('id', '==', Math.floor((Math.random() * 4)))
     this.para = this.firestore
-      .collection('paragraphs', (res) => res.where('id', '==', 4))
+      .collection('paragraphs', (res) => res.where('id', '==', Math.floor((Math.random() * 4))))
+      .valueChanges()
+      .pipe();
+  }
+  getById(id: number) {
+    this.para = this.firestore
+      .collection('paragraphs', (res) => res.where('id', '==', id))
       .valueChanges()
       .pipe();
   }

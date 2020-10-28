@@ -27,23 +27,22 @@ export class RoomDataService {
   ) {
     this._userInfo = auth.userInfo;
   }
-  saveParagraph(indexParagraph: number){
-    const roomId = this.agFireDatabase.createPushId();
-    this.agFireDatabase
-      .object(`room/friend-room/${roomId}`)
-      .set({
-        indexParagraph,
-      })
-      .then(() => {
-        this._roomId = roomId;
-      });
+  GetIndexParagraph(roomId: string) {
+    return this.agFireDatabase
+      .object(`room/friend-room/${roomId}/indexParagraph`)
+      .valueChanges();
+  }
+  SaveParagraph(roomId) {
+    this.agFireDatabase.object(`room/friend-room/${roomId}`).update({
+      indexParagraph: Math.floor(Math.random() * 4),
+    });
   }
 
   async CreatRoom(): Promise<string> {
     const roomId = this.agFireDatabase.createPushId();
 
     this.agFireDatabase
-      .object(`room/friend-room/${roomId}/${this._userInfo.uid}`)
+      .object(`room/friend-room/${roomId}/players/${this._userInfo.uid}`)
       .set({
         name: this._userInfo.name,
         score: 0,
@@ -51,13 +50,13 @@ export class RoomDataService {
       .then(() => {
         this._roomId = roomId;
       });
-
+    this.SaveParagraph(roomId);
     return roomId;
   }
 
   async JoinInRoom(roomId: string): Promise<void> {
     const room = this.agFireDatabase.object(
-      `room/friend-room/${roomId}/${this._userInfo.uid}`
+      `room/friend-room/${roomId}/players/${this._userInfo.uid}`
     );
 
     room.valueChanges().subscribe((res) => {
@@ -76,13 +75,13 @@ export class RoomDataService {
 
   LeftRoom(roomId: string): void {
     this.agFireDatabase
-      .object(`room/friend-room/${roomId}/${this._userInfo.uid}`)
+      .object(`room/friend-room/${roomId}/players/${this._userInfo.uid}`)
       .remove();
   }
 
   GetListFriends(roomId: string) {
     return this.agFireDatabase
-      .object(`room/friend-room/${roomId}`)
+      .object(`room/friend-room/${roomId}/players`)
       .valueChanges();
   }
 }

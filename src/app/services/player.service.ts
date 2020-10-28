@@ -7,13 +7,9 @@ import { AngularFireDatabase } from '@angular/fire/database';
 export class PlayerService {
   constructor(private firestore: AngularFireDatabase) {}
 
-  getInfoPlayer(id: string) {
-    return this.firestore.object(`players/${id}`).valueChanges().pipe();
-  }
-  setPercentOfPlayer(id:string, percent: number) {
-    const itemRef = this.firestore.object(`players/${id}`).update({ percent });
-  }
-  getRoomPlayer(){
-    
+  setPercentOfPlayer(roomId: string, userId: string, score: number) {
+    this.firestore
+      .object(`room/friend-room/${roomId}/players/${userId}`)
+      .update({ score });
   }
 }

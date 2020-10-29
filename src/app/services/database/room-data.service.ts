@@ -69,9 +69,8 @@ export class RoomDataService {
           ready: false
         });
 
-    const room = this.agFireDatabase.object(
-      `room/friend-room/${roomId}/players/${this._userInfo.uid}`
-    );
+    const room = this.agFireDatabase
+    .object(`room/friend-room/${roomId}/players/${this._userInfo.uid}`);
 
     room.valueChanges().subscribe((res) => {
       if (!res) {
@@ -90,8 +89,8 @@ export class RoomDataService {
 
   LeftRoom(roomId: string): void {
     this.agFireDatabase
-      .object(`room/friend-room/${roomId}/players/${this._userInfo.uid}`)
-      .remove();
+    .object(`room/friend-room/${roomId}/players/${this._userInfo.uid}`)
+    .remove();
   }
 
   GetListFriends(roomId: string) {

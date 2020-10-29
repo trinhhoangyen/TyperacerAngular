@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -13,7 +13,7 @@ import { RoomDataService } from '../../services/database/room-data.service';
   templateUrl: './type-text.component.html',
   styleUrls: ['./type-text.component.scss'],
 })
-export class TypeTextComponent implements OnInit {
+export class TypeTextComponent implements OnInit, OnDestroy {
   listFriends;
   indexParagraph;
 
@@ -85,6 +85,10 @@ export class TypeTextComponent implements OnInit {
       this.paraLength = this.listWord.length;
       this.typeNow();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.roomDataSvc.LeftRoom(this.roomId);
   }
 
   typerace(event) {

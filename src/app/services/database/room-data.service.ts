@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { element } from 'protractor';
 import { AuthenticationService } from '../authentication.service';
 
 @Injectable({
@@ -27,11 +28,13 @@ export class RoomDataService {
   ) {
     this._userInfo = auth.userInfo;
   }
+
   GetIndexParagraph(roomId: string) {
     return this.agFireDatabase
       .object(`room/friend-room/${roomId}/indexParagraph`)
       .valueChanges();
   }
+
   SaveParagraph(roomId) {
     this.agFireDatabase.object(`room/friend-room/${roomId}`).update({
       indexParagraph: Math.floor(Math.random() * 4),
@@ -41,11 +44,17 @@ export class RoomDataService {
   async CreatRoom(): Promise<string> {
     const roomId = this.agFireDatabase.createPushId();
 
+    this.agFireDatabase.object(`room/friend-room/${roomId}`)
+        .set({
+          ready: false
+        });
+
     this.agFireDatabase
       .object(`room/friend-room/${roomId}/players/${this._userInfo.uid}`)
       .set({
         name: this._userInfo.name,
         score: 0,
+        ready: false
       })
       .then(() => {
         this._roomId = roomId;
@@ -55,6 +64,11 @@ export class RoomDataService {
   }
 
   async JoinInRoom(roomId: string): Promise<void> {
+    this.agFireDatabase.object(`room/friend-room/${roomId}`)
+        .update({
+          ready: false
+        });
+
     const room = this.agFireDatabase.object(
       `room/friend-room/${roomId}/players/${this._userInfo.uid}`
     );
@@ -65,6 +79,7 @@ export class RoomDataService {
           .set({
             name: this._userInfo.name,
             score: 0,
+            ready: false
           })
           .then(() => {
             this._roomId = roomId;
@@ -83,5 +98,32 @@ export class RoomDataService {
     return this.agFireDatabase
       .object(`room/friend-room/${roomId}/players`)
       .valueChanges();
+  }
+
+  GetReady(roomId: string){
+    return this.agFireDatabase.object(`room/friend-room/${roomId}`)
+      .valueChanges();
+  }
+
+  ReadyClick(roomId: string) {
+    this.agFireDatabase.object(
+      `room/friend-room/${roomId}/players/${this._userInfo.uid}`
+    ).update({
+      ready: true
+    }).then(() => {
+      this.GetListFriends(roomId).subscribe(result => {
+        const temp = result;
+        Object.values(temp).forEach(element => {
+          if (element.ready === false) {
+            return;
+          }
+        });
+
+        this.agFireDatabase.object(`room/friend-room/${roomId}`)
+        .update({
+          ready: true
+        });
+      });
+    });
   }
 }

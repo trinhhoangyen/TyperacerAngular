@@ -32,6 +32,7 @@ export class TypeTextComponent implements OnInit {
   userId: string;
   race: Races;
   roomId: string;
+  canRun = false;
 
   constructor(
     public optionSvc: OptionService,
@@ -44,11 +45,12 @@ export class TypeTextComponent implements OnInit {
     private roomDataSvc: RoomDataService
   ) {}
   ngOnInit(): void {
-    if (this.fireService.userInfo)
+    if (this.fireService.userInfo){
       this.name = this.fireService.userInfo.name || 'No login';
+    }
 
     this.userId = this.auth.userInfo.uid;
-    
+
     this.activeRoute.queryParams.subscribe((params) => {
       this.roomId = params['roomId'];
       this.roomDataSvc.GetListFriends(this.roomId).subscribe((res) => {
@@ -57,6 +59,10 @@ export class TypeTextComponent implements OnInit {
           this.listFriends = Object.values(temp);
         }
         console.log(this.listFriends);
+      });
+
+      this.roomDataSvc.GetReady(this.roomId).subscribe((res) => {
+        this.canRun = res['ready'];
       });
 
       this.roomDataSvc.GetIndexParagraph(this.roomId).subscribe((res) => {
@@ -118,8 +124,13 @@ export class TypeTextComponent implements OnInit {
       this.backgroundColor = 'white';
     }
   }
+
   typeNow() {
     this.stringNow = this.listWord[this.typeIndex];
     this.stringType = this.stringType.replace(this.stringNow, '');
+  }
+
+  ReadyClick() {
+    this.roomDataSvc.ReadyClick(this.roomId);
   }
 }

@@ -4,12 +4,20 @@
   </div>
   <!-- <app-progess-bar [name]="name" [percent]="percentRight" [color]="color" ></app-progess-bar> -->
   <div>
+    <button type="button"
+      class="btn btn-primary"
+      style="background-color: darkblue;"
+      (click)="ReadyClick()"> Sẵn sàng
+    </button>
+
     <div class="paragraph" *ngIf="typeIndex < paraLength">
       <span>{{ stringRight }}</span>
       <span [ngStyle]="{ color: color }">{{ stringNow }}</span>
       <span>{{ stringType }}</span>
     </div>
+
     <input
+      [disabled]="!canRun"
       class="input"
       autofocus
       [ngStyle]="{ backgroundColor: backgroundColor }"

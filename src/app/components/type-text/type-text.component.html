@@ -1,4 +1,9 @@
 <div class="border-grey">
+  <h3 style="text-align: center; color: darkred;"
+    *ngIf="canRun"
+    >Bắt đầu
+  </h3>
+
   <div *ngFor="let player of listFriends">
     <app-progess-bar [name]="player.name" [percent]="player.score" [color]="color" ></app-progess-bar>
   </div>

@@ -112,15 +112,18 @@ export class RoomDataService {
     }).then(() => {
       this.GetListFriends(roomId).subscribe(result => {
         const temp = result;
+        let flag = true;
+
         Object.values(temp).forEach(element => {
           if (element.ready === false) {
-            return;
+            flag = false;
+            return false;
           }
         });
 
         this.agFireDatabase.object(`room/friend-room/${roomId}`)
         .update({
-          ready: true
+          ready: flag
         });
       });
     });

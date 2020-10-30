@@ -10,8 +10,9 @@ export class ParagraphService {
   constructor(private firestore: AngularFirestore) {}
   get() {
     //  this.para = this.firestore.collection('paragraphs', res => res.where('id', '==', Math.floor((Math.random() * 4)))
+    // Math.floor((Math.random() * 4))
     this.para = this.firestore
-      .collection('paragraphs', (res) => res.where('id', '==', Math.floor((Math.random() * 4))))
+      .collection('paragraphs', (res) => res.where('id', '==', 4))
       .valueChanges()
       .pipe();
   }

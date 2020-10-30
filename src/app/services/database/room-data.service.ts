@@ -37,7 +37,8 @@ export class RoomDataService {
 
   SaveParagraph(roomId) {
     this.agFireDatabase.object(`room/friend-room/${roomId}`).update({
-      indexParagraph: Math.floor(Math.random() * 4),
+      indexParagraph: 4,
+      // indexParagraph: Math.floor(Math.random() * 4),
     });
   }
 

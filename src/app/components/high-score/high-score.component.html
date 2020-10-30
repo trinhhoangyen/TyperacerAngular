@@ -5,18 +5,17 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Time</th>
-              <th scope="col">Point</th>
+              <!-- <th scope="col">Point</th> -->
               <th scope="col">Wpm</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let score of listHighScore; index as i">
-              <th scope="row">{{i}}</th>
-              <td>{{score.date | date}}</td>
+              <th scope="row">{{i+1}}</th>
+              <td>{{score.date | date: 'short'}}</td>
+              <!-- <td>{{score.point}}</td> -->
               <td>{{score.wpm}}</td>
-              <td>{{score.point}}</td>
             </tr>
-            
           </tbody>
     </table>
 </div>

@@ -8,18 +8,20 @@ import Races from 'src/interfaces/race.interface';
 export class RaceService {
   constructor(private firestore: AngularFirestore) {}
 
-  getList(id: string = 'jQUjVnZTuVhzN6hs1fkMLhsLQWh2') {
+  getList(userId: string = '') {
     return this.firestore
       .collection(`races`)
-      .doc(id)
-      .collection<Races>('listPoint')
+      .doc(userId)
+      .collection<Races>('listPoint', (res) => 
+        res.orderBy('wpm', 'desc').limit(10)
+      )
       .valueChanges();
   }
 
-  addRace(race: Races, id = 'jQUjVnZTuVhzN6hs1fkMLhsLQWh2') {
+  addRace(race: Races, userId = '') {
     this.firestore
       .collection(`races`)
-      .doc(id)
+      .doc(userId)
       .collection<Races>('listPoint')
       .add(race);
   }

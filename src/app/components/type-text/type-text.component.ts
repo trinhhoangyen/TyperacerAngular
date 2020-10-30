@@ -1,7 +1,6 @@
 import {
   Component,
-  OnInit,
-  Input,
+  OnInit,ElementRef,
   Output,
   OnDestroy,
   ViewChild,
@@ -16,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from 'src/app/services/player.service';
 import { RoomDataService } from '../../services/database/room-data.service';
 import { CountdownModule, CountdownComponent } from 'ngx-countdown';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-type-text',
@@ -23,7 +23,8 @@ import { CountdownModule, CountdownComponent } from 'ngx-countdown';
   styleUrls: ['./type-text.component.scss'],
 })
 export class TypeTextComponent implements OnInit, OnDestroy {
-  @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
+  @ViewChild('cd', { static: false })
+  private countdown: CountdownComponent;
   @Output() start = new EventEmitter();
   listFriends;
   indexParagraph;
@@ -45,6 +46,8 @@ export class TypeTextComponent implements OnInit, OnDestroy {
   roomId: string;
   canRun = false;
   configTimer;
+  isSaveScore = false;
+
   constructor(
     public optionSvc: OptionService,
     private paragraphSvc: ParagraphService,
@@ -54,17 +57,31 @@ export class TypeTextComponent implements OnInit, OnDestroy {
     private activeRoute: ActivatedRoute,
     private player: PlayerService,
     private roomDataSvc: RoomDataService,
-    private timer: CountdownModule
+    private timer: CountdownModule,
+    private input: ElementRef
   ) {
     this.configTimer = {
-      leftTime: 3,
+      leftTime: 60,
       demand: true,
-      // stopTime: 0,
       format: 'mm:ss',
     };
   }
-  begin() {
-    this.countdown.begin();
+  score() {
+    setTimeout(() => {
+      this.saveScore();
+      this.canRun = false;
+    }, 60000);
+  }
+  saveScore() {
+    if (this.isSaveScore) return;
+     
+    this.isSaveScore = true;
+    this.race = {
+      date: new Date().getTime().toString(),
+      point: 0,
+      wpm: ((this.typeIndex + 1) / (60 - this.countdown.left / 1000) * 60 ),
+    };
+    this.races.addRace(this.race, this.userId);
   }
   ngOnInit(): void {
     if (this.fireService.userInfo) {
@@ -86,14 +103,8 @@ export class TypeTextComponent implements OnInit, OnDestroy {
       this.roomDataSvc.GetReady(this.roomId).subscribe((res) => {
         this.canRun = res;
         if (res == true) {
-          // this.start.emit();
-          // console.log(this.countdown);
-          // this.countdown.begin();
-          this.configTimer = {
-            ...this.configTimer,
-            demand: false,
-          };
-          // this.configTimer.demand = false; 
+          this.countdown.begin();
+          this.score();
         }
       });
 
@@ -126,17 +137,10 @@ export class TypeTextComponent implements OnInit, OnDestroy {
   typerace(event) {
     if (event.target.value.indexOf(' ') >= 0) {
       if (this.typeIndex === this.paraLength - 1) {
-        console.log('chay dc');
-        this.race = {
-          date: new Date().getTime().toString(),
-          point: 0,
-          wpm: 50,
-        };
-        this.races.addRace(this.race, this.userId);
+        this.saveScore();
       }
       if (event.target.value === this.listWord[this.typeIndex] + ' ') {
         this.typeIndex++;
-
         this.stringRight += event.target.value + ' ';
         this.stringNow = this.listWord[this.typeIndex];
         this.stringType = this.stringType.replace(this.stringNow, '');
@@ -168,5 +172,6 @@ export class TypeTextComponent implements OnInit, OnDestroy {
 
   ReadyClick() {
     this.roomDataSvc.ReadyClick(this.roomId);
+    const a =document.getElementById("input").autofocus;
   }
 }

@@ -1,5 +1,5 @@
-<countdown [config]="configTimer"></countdown>
-
+<countdown #cd [config]="configTimer"></countdown>
+<div *ngIf="race" class="alert alert-primary" role="alert">Your score is: {{race.wpm}}</div>
 <div class="border-grey">
   <h3 style="text-align: center; color: darkred;"
     *ngIf="canRun"
@@ -26,6 +26,7 @@
     <input
       [disabled]="!canRun"
       class="input"
+      id="input"
       autofocus
       [ngStyle]="{ backgroundColor: backgroundColor }"
       (keyup)="typerace($event)"

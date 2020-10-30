@@ -13,6 +13,7 @@ import Races from 'src/interfaces/race.interface';
 export class PracticeComponent implements OnInit {
   @Input() players: { name: string; percent: number; color: string }[] = [];
 
+
   typeIndex = 0;
   listWord = [];
   paragraph = '';
@@ -34,7 +35,8 @@ export class PracticeComponent implements OnInit {
     private fireService: AuthenticationService,
     private races: RaceService,
     private auth: AuthenticationService
-  ) {}
+  ) {
+  }
   ngOnInit(): void {
     if (this.fireService.userInfo)
       this.name = this.fireService.userInfo.name || 'No login';

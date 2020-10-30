@@ -24,7 +24,7 @@ export class RoomDataService {
 
   constructor(
     private agFireDatabase: AngularFireDatabase,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
   ) {
     this._userInfo = auth.userInfo;
   }
@@ -100,7 +100,7 @@ export class RoomDataService {
   }
 
   GetReady(roomId: string){
-    return this.agFireDatabase.object(`room/friend-room/${roomId}`)
+    return this.agFireDatabase.object<boolean>(`room/friend-room/${roomId}/ready`)
       .valueChanges();
   }
 
@@ -124,7 +124,7 @@ export class RoomDataService {
         this.agFireDatabase.object(`room/friend-room/${roomId}`)
         .update({
           ready: flag
-        });
+        })
       });
     });
   }

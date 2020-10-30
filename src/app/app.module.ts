@@ -20,6 +20,7 @@ import { ProgessBarComponent } from './components/progess-bar/progess-bar.compon
 import { TypeTextComponent } from './components/type-text/type-text.component';
 import { OptionService } from './services/option.service';
 import { ParagraphService } from './services/paragraph.service';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -34,14 +35,21 @@ import { ParagraphService } from './services/paragraph.service';
     RoomComponent,
     ProgessBarComponent,
     TypeTextComponent,
+    // CountdownModule,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    CountdownModule,
   ],
-  providers: [AngularFireDatabase, AngularFireAuth, OptionService, ParagraphService],
+  providers: [
+    AngularFireDatabase,
+    AngularFireAuth,
+    OptionService,
+    ParagraphService,
+  ],
   bootstrap: [AppComponent, TopBarComponent],
 })
 export class AppModule {}

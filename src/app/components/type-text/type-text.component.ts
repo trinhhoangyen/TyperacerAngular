@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  OnDestroy,
+  ViewChild,
+  EventEmitter,
+} from '@angular/core';
 import { OptionService } from 'src/app/services/option.service';
 import { ParagraphService } from 'src/app/services/paragraph.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -7,6 +15,7 @@ import Races from 'src/interfaces/race.interface';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from 'src/app/services/player.service';
 import { RoomDataService } from '../../services/database/room-data.service';
+import { CountdownModule, CountdownComponent } from 'ngx-countdown';
 
 @Component({
   selector: 'app-type-text',
@@ -14,6 +23,8 @@ import { RoomDataService } from '../../services/database/room-data.service';
   styleUrls: ['./type-text.component.scss'],
 })
 export class TypeTextComponent implements OnInit, OnDestroy {
+  @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
+  @Output() start = new EventEmitter();
   listFriends;
   indexParagraph;
 
@@ -33,7 +44,7 @@ export class TypeTextComponent implements OnInit, OnDestroy {
   race: Races;
   roomId: string;
   canRun = false;
-
+  configTimer;
   constructor(
     public optionSvc: OptionService,
     private paragraphSvc: ParagraphService,
@@ -42,10 +53,21 @@ export class TypeTextComponent implements OnInit, OnDestroy {
     private auth: AuthenticationService,
     private activeRoute: ActivatedRoute,
     private player: PlayerService,
-    private roomDataSvc: RoomDataService
-  ) {}
+    private roomDataSvc: RoomDataService,
+    private timer: CountdownModule
+  ) {
+    this.configTimer = {
+      leftTime: 3,
+      demand: true,
+      // stopTime: 0,
+      format: 'mm:ss',
+    };
+  }
+  begin() {
+    this.countdown.begin();
+  }
   ngOnInit(): void {
-    if (this.fireService.userInfo){
+    if (this.fireService.userInfo) {
       this.name = this.fireService.userInfo.name || 'No login';
     }
 
@@ -62,7 +84,17 @@ export class TypeTextComponent implements OnInit, OnDestroy {
       });
 
       this.roomDataSvc.GetReady(this.roomId).subscribe((res) => {
-        this.canRun = res['ready'];
+        this.canRun = res;
+        if (res == true) {
+          // this.start.emit();
+          // console.log(this.countdown);
+          // this.countdown.begin();
+          this.configTimer = {
+            ...this.configTimer,
+            demand: false,
+          };
+          // this.configTimer.demand = false; 
+        }
       });
 
       this.roomDataSvc.GetIndexParagraph(this.roomId).subscribe((res) => {
